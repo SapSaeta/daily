@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { DistanceChart, PainChart, WeeklyBarChart } from '@/components/ProgressChart'
+import { DistanceChart, PainChart, WeeklyBarChart, WeightChart } from '@/components/ProgressChart'
 
 interface SwimSession {
   id: number
@@ -15,7 +15,14 @@ interface SwimSession {
   fatigue1to5: number
 }
 
-type ChartView = 'distance' | 'pain' | 'weekly'
+interface WeightEntry {
+  id: number
+  date: string
+  weightKg: number
+  notes?: string
+}
+
+type ChartView = 'distance' | 'pain' | 'weekly' | 'weight'
 
 function groupByWeek(sessions: SwimSession[]) {
   const weeks: Record<string, { distance: number; sessions: number; weekLabel: string }> = {}
@@ -43,6 +50,7 @@ function groupByWeek(sessions: SwimSession[]) {
 
 export default function ProgresoPage() {
   const [sessions, setSessions] = useState<SwimSession[]>([])
+  const [weightEntries, setWeightEntries] = useState<WeightEntry[]>([])
   const [loading, setLoading] = useState(true)
   const [chartView, setChartView] = useState<ChartView>('distance')
   const [days, setDays] = useState(30)
@@ -51,9 +59,14 @@ export default function ProgresoPage() {
     const fetchData = async () => {
       setLoading(true)
       try {
-        const res = await fetch(`/api/sessions?limit=100&days=${days}`)
-        const data = await res.json()
-        setSessions(data.sessions || [])
+        const [sessionsRes, weightRes] = await Promise.all([
+          fetch(`/api/sessions?limit=100&days=${days}`),
+          fetch(`/api/weight?limit=100&days=${days}`),
+        ])
+        const sessionsData = await sessionsRes.json()
+        const weightData = await weightRes.json()
+        setSessions(sessionsData.sessions || [])
+        setWeightEntries(weightData.entries || [])
       } catch (error) {
         console.error('Error:', error)
       } finally {
@@ -115,6 +128,16 @@ export default function ProgresoPage() {
     ? prev7.reduce((sum, s) => sum + s.shoulderPainAfter0to10, 0) / prev7.length
     : 0
   const painTrend = last7Pain - prev7Pain
+
+  // Weight data
+  const sortedWeight = [...weightEntries].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+  const weightData = sortedWeight.map(w => ({
+    date: new Date(w.date).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }),
+    weight: w.weightKg,
+  }))
+  const latestWeight = sortedWeight.length > 0 ? sortedWeight[sortedWeight.length - 1].weightKg : null
+  const firstWeight = sortedWeight.length > 1 ? sortedWeight[0].weightKg : null
+  const weightChange = latestWeight != null && firstWeight != null ? latestWeight - firstWeight : null
 
   // Session type distribution
   const typeCount: Record<string, number> = {}
@@ -219,7 +242,7 @@ export default function ProgresoPage() {
           <div className="card">
             {/* Chart selector */}
             <div className="flex gap-1 bg-slate-800 p-1 rounded-xl mb-4">
-              {(['distance', 'pain', 'weekly'] as ChartView[]).map((view) => (
+              {(['distance', 'pain', 'weekly', 'weight'] as ChartView[]).map((view) => (
                 <button
                   key={view}
                   onClick={() => setChartView(view)}
@@ -227,7 +250,7 @@ export default function ProgresoPage() {
                     chartView === view ? 'bg-sky-500 text-white' : 'text-slate-400 hover:text-slate-300'
                   }`}
                 >
-                  {view === 'distance' ? 'Distancia' : view === 'pain' ? 'Dolor' : 'Semanas'}
+                  {view === 'distance' ? 'Distancia' : view === 'pain' ? 'Dolor' : view === 'weekly' ? 'Semanas' : 'Peso'}
                 </button>
               ))}
             </div>
@@ -264,6 +287,48 @@ export default function ProgresoPage() {
               <div>
                 <p className="text-xs text-slate-500 mb-3">Distancia total por semana (metros)</p>
                 <WeeklyBarChart data={weeklyData} />
+              </div>
+            )}
+
+            {chartView === 'weight' && (
+              <div>
+                <p className="text-xs text-slate-500 mb-3">Evolución del peso corporal (kg)</p>
+                {weightData.length > 0 ? (
+                  <>
+                    <WeightChart data={weightData} />
+                    <div className="mt-3 grid grid-cols-3 gap-2">
+                      <div className="stat-card">
+                        <span className="text-[10px] text-slate-500">Actual</span>
+                        <span className="text-lg font-bold text-emerald-400">
+                          {latestWeight != null ? `${latestWeight} kg` : '—'}
+                        </span>
+                      </div>
+                      <div className="stat-card">
+                        <span className="text-[10px] text-slate-500">Inicio</span>
+                        <span className="text-lg font-bold text-slate-300">
+                          {firstWeight != null ? `${firstWeight} kg` : latestWeight != null ? `${latestWeight} kg` : '—'}
+                        </span>
+                      </div>
+                      <div className="stat-card">
+                        <span className="text-[10px] text-slate-500">Cambio</span>
+                        <span className={`text-lg font-bold ${
+                          weightChange == null ? 'text-slate-400' :
+                          weightChange < 0 ? 'text-emerald-400' :
+                          weightChange > 0 ? 'text-amber-400' : 'text-slate-400'
+                        }`}>
+                          {weightChange != null
+                            ? `${weightChange > 0 ? '+' : ''}${weightChange.toFixed(1)} kg`
+                            : '—'}
+                        </span>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <div className="text-center py-8">
+                    <p className="text-slate-500 text-sm">Sin registros de peso</p>
+                    <p className="text-slate-600 text-xs mt-1">Registra tu peso en la sección de registro</p>
+                  </div>
+                )}
               </div>
             )}
           </div>

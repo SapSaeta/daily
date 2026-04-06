@@ -29,6 +29,13 @@ interface PainChartProps {
   }>
 }
 
+interface WeightChartProps {
+  data: Array<{
+    date: string
+    weight: number
+  }>
+}
+
 interface WeeklyBarChartProps {
   data: Array<{
     week: string
@@ -126,6 +133,46 @@ export function PainChart({ data }: PainChartProps) {
           stroke="#ef4444"
           strokeWidth={2}
           dot={{ fill: '#ef4444', r: 3 }}
+        />
+      </LineChart>
+    </ResponsiveContainer>
+  )
+}
+
+export function WeightChart({ data }: WeightChartProps) {
+  if (data.length === 0) return null
+  const weights = data.map(d => d.weight)
+  const min = Math.floor(Math.min(...weights)) - 1
+  const max = Math.ceil(Math.max(...weights)) + 1
+
+  return (
+    <ResponsiveContainer width="100%" height={200}>
+      <LineChart data={data} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+        <XAxis
+          dataKey="date"
+          tick={{ fill: '#64748b', fontSize: 10 }}
+          axisLine={{ stroke: '#1e293b' }}
+          tickLine={false}
+        />
+        <YAxis
+          tick={{ fill: '#64748b', fontSize: 10 }}
+          axisLine={{ stroke: '#1e293b' }}
+          tickLine={false}
+          domain={[min, max]}
+          unit="kg"
+        />
+        <Tooltip
+          {...CustomTooltipStyle}
+          formatter={(value) => [`${value} kg`, 'Peso']}
+        />
+        <Line
+          type="monotone"
+          dataKey="weight"
+          stroke="#10b981"
+          strokeWidth={2}
+          dot={{ fill: '#10b981', r: 3 }}
+          activeDot={{ r: 5, fill: '#34d399' }}
         />
       </LineChart>
     </ResponsiveContainer>
