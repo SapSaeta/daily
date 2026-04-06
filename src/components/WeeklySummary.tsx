@@ -21,94 +21,135 @@ export default function WeeklySummary({
   const hoursSwum = Math.floor(totalMinutes / 60)
   const minsSwum = totalMinutes % 60
 
+  // SVG ring params
+  const size = 110
+  const stroke = 8
+  const r = (size - stroke) / 2
+  const circ = 2 * Math.PI * r
+  const dash = (progressPercent / 100) * circ
+
   const painColor =
-    avgShoulderPain <= 2 ? 'text-emerald-400' :
-    avgShoulderPain <= 4 ? 'text-amber-400' :
-    avgShoulderPain <= 6 ? 'text-orange-400' :
-    'text-red-400'
+    avgShoulderPain === 0 ? '#34d399' :
+    avgShoulderPain <= 2 ? '#34d399' :
+    avgShoulderPain <= 4 ? '#fbbf24' :
+    avgShoulderPain <= 6 ? '#fb923c' :
+    '#f87171'
 
   const painLabel =
-    avgShoulderPain <= 2 ? 'Sin molestia' :
+    avgShoulderPain === 0 ? '—' :
+    avgShoulderPain <= 2 ? 'Muy leve' :
     avgShoulderPain <= 4 ? 'Leve' :
     avgShoulderPain <= 6 ? 'Moderado' :
     'Alto'
 
+  const ringColor =
+    progressPercent >= 100 ? '#34d399' :
+    progressPercent >= 70  ? '#0ea5e9' :
+    progressPercent >= 40  ? '#fbbf24' :
+    '#475569'
+
   return (
-    <div className="card">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-sm font-semibold text-slate-100">Resumen semanal</h2>
-        <span className="text-xs text-slate-500">Esta semana</span>
-      </div>
-
-      {/* Progress bar */}
-      <div className="mb-4">
-        <div className="flex justify-between items-center mb-1.5">
-          <span className="text-xs text-slate-400">Distancia semanal</span>
-          <span className="text-xs font-semibold text-sky-400">{progressPercent}%</span>
-        </div>
-        <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
-          <div
-            className={`h-full rounded-full transition-all duration-500 ${
-              progressPercent >= 100 ? 'bg-emerald-500' :
-              progressPercent >= 70 ? 'bg-sky-500' :
-              progressPercent >= 40 ? 'bg-amber-500' :
-              'bg-slate-600'
-            }`}
-            style={{ width: `${progressPercent}%` }}
-          />
-        </div>
-        <div className="flex justify-between items-center mt-1">
-          <span className="text-xs text-slate-500">{totalDistanceMeters.toLocaleString('es')}m</span>
-          <span className="text-xs text-slate-500">Meta: {weeklyGoalMeters.toLocaleString('es')}m</span>
-        </div>
-      </div>
-
-      {/* Stats grid */}
-      <div className="grid grid-cols-2 gap-2">
-        <div className="stat-card">
-          <span className="text-[10px] text-slate-500 uppercase tracking-wide">Tiempo en agua</span>
-          <span className="text-lg font-bold text-slate-100">
-            {hoursSwum > 0 ? `${hoursSwum}h ${minsSwum}m` : `${minsSwum}m`}
+    <div
+      className="rounded-2xl overflow-hidden"
+      style={{
+        background: 'rgba(255,255,255,0.04)',
+        border: '1px solid rgba(255,255,255,0.08)',
+      }}
+    >
+      {/* Header */}
+      <div className="px-4 pt-4 pb-3 flex items-center justify-between">
+        <p className="text-xs font-bold uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.35)' }}>
+          Semana actual
+        </p>
+        {progressPercent >= 100 && (
+          <span
+            className="text-xs font-bold px-2.5 py-1 rounded-full"
+            style={{ background: 'rgba(52,211,153,0.15)', color: '#34d399' }}
+          >
+            ✓ Meta lograda
           </span>
+        )}
+      </div>
+
+      {/* Main content */}
+      <div className="px-4 pb-4 flex items-center gap-4">
+        {/* Ring */}
+        <div className="flex-shrink-0 relative flex items-center justify-center" style={{ width: size, height: size }}>
+          <svg width={size} height={size} style={{ transform: 'rotate(-90deg)' }}>
+            <circle
+              cx={size / 2} cy={size / 2} r={r}
+              fill="none"
+              stroke="rgba(255,255,255,0.06)"
+              strokeWidth={stroke}
+            />
+            <circle
+              cx={size / 2} cy={size / 2} r={r}
+              fill="none"
+              stroke={ringColor}
+              strokeWidth={stroke}
+              strokeLinecap="round"
+              strokeDasharray={`${dash} ${circ}`}
+              style={{ transition: 'stroke-dasharray 0.6s ease' }}
+            />
+          </svg>
+          <div className="absolute text-center">
+            <p className="text-xl font-black text-white leading-none">
+              {progressPercent}%
+            </p>
+            <p className="text-[9px] font-semibold mt-0.5" style={{ color: 'rgba(255,255,255,0.35)' }}>
+              {(totalDistanceMeters / 1000).toFixed(1)}km
+            </p>
+          </div>
         </div>
 
-        <div className="stat-card">
-          <span className="text-[10px] text-slate-500 uppercase tracking-wide">Dolor hombro</span>
-          <div className="flex items-baseline gap-1">
-            <span className={`text-lg font-bold ${painColor}`}>
-              {avgShoulderPain > 0 ? avgShoulderPain.toFixed(1) : '—'}
+        {/* Stats */}
+        <div className="flex-1 space-y-2.5">
+          {/* Time */}
+          <div className="flex items-center justify-between">
+            <span className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>Tiempo</span>
+            <span className="text-sm font-bold text-white">
+              {hoursSwum > 0 ? `${hoursSwum}h ${minsSwum}m` : minsSwum > 0 ? `${minsSwum}m` : '—'}
             </span>
-            <span className={`text-[10px] ${painColor}`}>{avgShoulderPain > 0 ? painLabel : ''}</span>
           </div>
-        </div>
-
-        <div className="stat-card">
-          <span className="text-[10px] text-slate-500 uppercase tracking-wide">Sesiones natación</span>
-          <div className="flex items-center gap-1.5">
-            <span className="text-lg font-bold text-sky-400">{swimSessions}</span>
-            <div className="flex gap-0.5">
-              {Array.from({ length: 3 }).map((_, i) => (
-                <div
-                  key={i}
-                  className={`w-2 h-2 rounded-full ${i < swimSessions ? 'bg-sky-500' : 'bg-slate-700'}`}
-                />
-              ))}
+          {/* Sessions */}
+          <div className="flex items-center justify-between">
+            <span className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>Sesiones</span>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-semibold" style={{ color: '#38bdf8' }}>
+                {swimSessions} nado
+              </span>
+              <span className="text-xs" style={{ color: 'rgba(255,255,255,0.2)' }}>·</span>
+              <span className="text-xs font-semibold" style={{ color: '#a78bfa' }}>
+                {bandSessions} bandas
+              </span>
             </div>
           </div>
-        </div>
-
-        <div className="stat-card">
-          <span className="text-[10px] text-slate-500 uppercase tracking-wide">Sesiones bandas</span>
-          <div className="flex items-center gap-1.5">
-            <span className="text-lg font-bold text-violet-400">{bandSessions}</span>
-            <div className="flex gap-0.5">
-              {Array.from({ length: 3 }).map((_, i) => (
-                <div
-                  key={i}
-                  className={`w-2 h-2 rounded-full ${i < bandSessions ? 'bg-violet-500' : 'bg-slate-700'}`}
-                />
-              ))}
+          {/* Shoulder */}
+          <div className="flex items-center justify-between">
+            <span className="text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>Hombro</span>
+            <div className="flex items-center gap-1.5">
+              <div className="w-1.5 h-1.5 rounded-full" style={{ background: painColor }} />
+              <span className="text-sm font-bold" style={{ color: painColor }}>
+                {avgShoulderPain > 0 ? `${avgShoulderPain.toFixed(1)}/10` : '—'}
+              </span>
+              <span className="text-xs" style={{ color: 'rgba(255,255,255,0.3)' }}>{avgShoulderPain > 0 ? painLabel : ''}</span>
             </div>
+          </div>
+          {/* Goal bar */}
+          <div>
+            <div className="h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.08)' }}>
+              <div
+                className="h-full rounded-full"
+                style={{
+                  width: `${progressPercent}%`,
+                  background: ringColor,
+                  transition: 'width 0.6s ease',
+                }}
+              />
+            </div>
+            <p className="text-[10px] mt-1" style={{ color: 'rgba(255,255,255,0.25)' }}>
+              Meta: {(weeklyGoalMeters / 1000).toFixed(1)}km
+            </p>
           </div>
         </div>
       </div>

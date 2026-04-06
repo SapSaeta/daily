@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0284c7',
+  themeColor: '#08080f',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
@@ -41,7 +41,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <link rel="apple-touch-icon" href="/icons/icon-192.png" />
       </head>
-      <body className="bg-slate-950 text-slate-100 min-h-screen">
+      <body style={{ background: '#08080f' }} className="text-slate-100 min-h-screen">
         <div className="max-w-md mx-auto min-h-screen flex flex-col relative">
           {/* Main content with bottom padding for navigation */}
           <main className="flex-1 pb-20 overflow-x-hidden">
