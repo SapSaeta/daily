@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model SwimSession {
+  id                      Int      @id @default(autoincrement())
+  date                    DateTime
+  distanceMeters          Int
+  durationMinutes         Int
+  sessionType             String
+  effort1to5              Int
+  shoulderPainBefore0to10 Int      @default(0)
+  shoulderPainAfter0to10  Int      @default(0)
+  fatigue1to5             Int      @default(3)
+  notes                   String?
+  completed               Boolean  @default(false)
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+}
+
+model BandSession {
+  id              Int      @id @default(autoincrement())
+  date            DateTime
+  durationMinutes Int
+  effort1to5      Int
+  shoulderPain0to10 Int    @default(0)
+  notes           String?
+  completed       Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Exercise {
+  id          Int     @id @default(autoincrement())
+  name        String
+  category    String
+  description String
+  sets        Int?
+  reps        String?
+  duration    String?
+  notes       String?
+  imageUrl    String?
+}
+
+model WeeklyPlan {
+  id        Int              @id @default(autoincrement())
+  weekStart DateTime
+  weekEnd   DateTime
+  generated Boolean          @default(false)
+  workouts  PlannedWorkout[]
+  createdAt DateTime         @default(now())
+}
+
+model PlannedWorkout {
+  id             Int        @id @default(autoincrement())
+  weeklyPlan     WeeklyPlan @relation(fields: [weeklyPlanId], references: [id])
+  weeklyPlanId   Int
+  date           DateTime
+  workoutType    String
+  title          String
+  description    String
+  targetDistance Int?
+  targetDuration Int?
+  intensity      String
+  focus          String
+  status         String     @default("PENDING")
+}
+
+model ReminderLog {
+  id        Int      @id @default(autoincrement())
+  type      String
+  message   String
+  shown     Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model UserSettings {
+  id                       Int      @id @default(autoincrement())
+  notificationsEnabled     Boolean  @default(false)
+  preferredSwimDays        String   @default("MON,WED,FRI")
+  preferredBandDays        String   @default("TUE,THU,SAT")
+  maxShoulderPainThreshold Int      @default(5)
+  currentWeeklyDistanceGoal Int     @default(4000)
+  updatedAt                DateTime @updatedAt
+}
