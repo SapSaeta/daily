@@ -183,36 +183,23 @@ export default async function DashboardPage() {
 
   return (
     <div className="pb-4 space-y-5">
-      {/* Hero header */}
+      {/* Top bar */}
       <div
-        className="px-5 pt-12 pb-6 relative overflow-hidden"
-        style={{
-          background: 'linear-gradient(160deg, rgba(14,165,233,0.15) 0%, rgba(99,102,241,0.1) 50%, transparent 100%)',
-        }}
+        className="px-5 pt-10 pb-5 bg-white"
+        style={{ borderBottom: '1px solid #e2e8f0' }}
       >
-        {/* Background blur orb */}
-        <div
-          className="absolute top-0 right-0 w-48 h-48 rounded-full pointer-events-none"
-          style={{
-            background: 'radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%)',
-            transform: 'translate(20%, -20%)',
-          }}
-        />
-        <div className="flex items-start justify-between relative z-10">
+        <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm font-medium mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>
+            <p className="text-xs font-semibold text-slate-400 mb-0.5 uppercase tracking-wide">
               {getGreeting()}
             </p>
-            <h1 className="text-2xl font-black text-white capitalize leading-tight">{today}</h1>
+            <h1 className="text-xl font-extrabold text-slate-900 capitalize leading-tight">{today}</h1>
           </div>
           <div
-            className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
-            style={{
-              background: 'linear-gradient(135deg, #0ea5e9, #6366f1)',
-              boxShadow: '0 4px 20px rgba(99,102,241,0.4)',
-            }}
+            className="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0"
+            style={{ background: 'linear-gradient(135deg, #0284c7, #7c3aed)' }}
           >
-            <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z" />
             </svg>
           </div>
@@ -252,19 +239,19 @@ export default async function DashboardPage() {
             </div>
           ) : (
             <div
-              className="rounded-2xl p-6 text-center"
-              style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}
+              className="bg-white rounded-2xl border border-slate-200 p-6 text-center"
+              style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.06)' }}
             >
               <div
-                className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                style={{ background: 'rgba(99,102,241,0.1)' }}
+                className="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-3"
+                style={{ background: '#ede9fe' }}
               >
-                <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="rgba(99,102,241,0.7)" strokeWidth={1.5}>
+                <svg className="w-6 h-6 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
                 </svg>
               </div>
-              <p className="text-base font-bold text-white mb-1">Sin plan para hoy</p>
-              <p className="text-sm mb-5" style={{ color: 'rgba(255,255,255,0.35)' }}>Genera un plan semanal para ver tus entrenos</p>
+              <p className="text-base font-bold text-slate-900 mb-1">Sin plan para hoy</p>
+              <p className="text-sm text-slate-500 mb-5">Genera un plan semanal para ver tus entrenos</p>
               <Link href="/plan" className="btn-primary inline-block text-sm py-3 px-8">
                 Generar plan
               </Link>
@@ -281,47 +268,44 @@ export default async function DashboardPage() {
                 href: '/registro?type=swim',
                 label: 'Nado',
                 sublabel: 'Natación',
-                gradient: 'linear-gradient(135deg, rgba(14,165,233,0.2), rgba(99,102,241,0.15))',
-                border: 'rgba(14,165,233,0.25)',
-                iconColor: '#38bdf8',
+                iconBg: '#e0f2fe',
+                iconColor: '#0284c7',
                 iconPath: 'M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z',
               },
               {
                 href: '/registro?type=band',
                 label: 'Bandas',
                 sublabel: 'Hombro',
-                gradient: 'linear-gradient(135deg, rgba(139,92,246,0.2), rgba(236,72,153,0.15))',
-                border: 'rgba(139,92,246,0.25)',
-                iconColor: '#a78bfa',
+                iconBg: '#ede9fe',
+                iconColor: '#7c3aed',
                 iconPath: 'M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z',
               },
               {
                 href: '/registro?type=weight',
                 label: data.currentWeight != null ? `${data.currentWeight}kg` : 'Peso',
                 sublabel: data.currentWeight != null ? 'Actualizar' : 'Registrar',
-                gradient: 'linear-gradient(135deg, rgba(52,211,153,0.2), rgba(6,182,212,0.15))',
-                border: 'rgba(52,211,153,0.25)',
-                iconColor: '#34d399',
+                iconBg: '#d1fae5',
+                iconColor: '#059669',
                 iconPath: 'M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0 0 12 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 0 1-2.031.352 5.988 5.988 0 0 1-2.031-.352c-.483-.174-.711-.703-.589-1.202L18.75 4.97Zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0 2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 0 1-2.031.352 5.989 5.989 0 0 1-2.031-.352c-.483-.174-.711-.703-.589-1.202L5.25 4.97Z',
               },
             ].map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="rounded-2xl p-4 flex flex-col gap-3 active:opacity-70 transition-opacity"
-                style={{ background: item.gradient, border: `1px solid ${item.border}` }}
+                className="bg-white rounded-2xl border border-slate-200 p-4 flex flex-col gap-3 active:opacity-70 transition-opacity"
+                style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}
               >
                 <div
                   className="w-9 h-9 rounded-xl flex items-center justify-center"
-                  style={{ background: 'rgba(0,0,0,0.25)' }}
+                  style={{ background: item.iconBg }}
                 >
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke={item.iconColor} strokeWidth={1.8}>
                     <path strokeLinecap="round" strokeLinejoin="round" d={item.iconPath} />
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-white leading-none">{item.label}</p>
-                  <p className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.45)' }}>{item.sublabel}</p>
+                  <p className="text-sm font-bold text-slate-900 leading-none">{item.label}</p>
+                  <p className="text-xs mt-0.5 text-slate-400">{item.sublabel}</p>
                 </div>
               </Link>
             ))}
@@ -343,42 +327,42 @@ export default async function DashboardPage() {
           <div>
             <div className="flex items-center justify-between mb-3">
               <p className="section-title mb-0">Últimas sesiones</p>
-              <Link href="/historial" className="text-xs font-semibold" style={{ color: '#38bdf8' }}>
+              <Link href="/historial" className="text-xs font-semibold text-sky-600">
                 Ver todo →
               </Link>
             </div>
             <div className="space-y-2">
               {data.recentSessions.map((session, i) => {
                 const isSwim = session.type === 'swim'
-                const painColor = session.pain === 0 ? 'rgba(255,255,255,0.3)' :
-                  session.pain <= 2 ? '#34d399' : session.pain <= 4 ? '#fbbf24' :
-                  session.pain <= 6 ? '#fb923c' : '#f87171'
+                const painColor = session.pain === 0 ? '#94a3b8' :
+                  session.pain <= 2 ? '#059669' : session.pain <= 4 ? '#d97706' :
+                  session.pain <= 6 ? '#d97706' : '#dc2626'
                 return (
                   <div
                     key={i}
-                    className="rounded-2xl p-3.5 flex items-center gap-3"
-                    style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
+                    className="bg-white rounded-2xl border border-slate-200 p-3.5 flex items-center gap-3"
+                    style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }}
                   >
                     <div
                       className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                      style={{ background: isSwim ? 'rgba(14,165,233,0.12)' : 'rgba(139,92,246,0.12)' }}
+                      style={{ background: isSwim ? '#e0f2fe' : '#ede9fe' }}
                     >
                       {isSwim ? (
-                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#38bdf8" strokeWidth={1.8}>
+                        <svg className="w-5 h-5 text-sky-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M15.182 15.182a4.5 4.5 0 0 1-6.364 0M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
                       ) : (
-                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="#a78bfa" strokeWidth={1.8}>
+                        <svg className="w-5 h-5 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
                         </svg>
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-bold text-white">{session.title}</p>
-                      <p className="text-xs truncate mt-0.5" style={{ color: 'rgba(255,255,255,0.35)' }}>{session.detail}</p>
+                      <p className="text-sm font-bold text-slate-900">{session.title}</p>
+                      <p className="text-xs truncate mt-0.5 text-slate-500">{session.detail}</p>
                     </div>
                     <div className="text-right flex-shrink-0">
-                      <p className="text-xs capitalize mb-0.5" style={{ color: 'rgba(255,255,255,0.3)' }}>{formatDate(session.date)}</p>
+                      <p className="text-xs capitalize mb-0.5 text-slate-400">{formatDate(session.date)}</p>
                       {session.pain > 0 && (
                         <span className="text-xs font-bold" style={{ color: painColor }}>
                           {session.pain}/10
@@ -395,25 +379,22 @@ export default async function DashboardPage() {
         {/* Exercise library link */}
         <Link
           href="/ejercicios"
-          className="rounded-2xl p-4 flex items-center gap-4 active:opacity-70 transition-opacity"
-          style={{
-            background: 'linear-gradient(135deg, rgba(52,211,153,0.1), rgba(6,182,212,0.08))',
-            border: '1px solid rgba(52,211,153,0.2)',
-          }}
+          className="bg-white rounded-2xl border border-slate-200 p-4 flex items-center gap-4 active:opacity-70 transition-opacity"
+          style={{ boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }}
         >
           <div
             className="w-11 h-11 rounded-2xl flex items-center justify-center flex-shrink-0"
-            style={{ background: 'rgba(52,211,153,0.15)' }}
+            style={{ background: '#d1fae5' }}
           >
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="#34d399" strokeWidth={1.8}>
+            <svg className="w-6 h-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
             </svg>
           </div>
           <div className="flex-1">
-            <p className="text-sm font-bold text-white">Biblioteca de ejercicios</p>
-            <p className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.35)' }}>15 ejercicios para el hombro</p>
+            <p className="text-sm font-bold text-slate-900">Biblioteca de ejercicios</p>
+            <p className="text-xs mt-0.5 text-slate-500">15 ejercicios para el hombro</p>
           </div>
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="rgba(255,255,255,0.25)" strokeWidth={2}>
+          <svg className="w-5 h-5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
           </svg>
         </Link>

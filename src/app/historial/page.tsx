@@ -72,7 +72,7 @@ function SwimSessionCard({ session }: { session: SwimSession }) {
               </svg>
             </div>
             <div>
-              <p className="text-sm font-semibold text-slate-100">
+              <p className="text-sm font-semibold text-slate-900">
                 {swimTypeLabels[session.sessionType] || session.sessionType}
               </p>
               <p className="text-xs text-slate-500">
@@ -83,7 +83,7 @@ function SwimSessionCard({ session }: { session: SwimSession }) {
             </div>
           </div>
           <div className="text-right flex-shrink-0">
-            <p className="text-sm font-bold text-sky-400">{session.distanceMeters}m</p>
+            <p className="text-sm font-bold text-sky-600">{session.distanceMeters}m</p>
             <p className="text-xs text-slate-500">{session.durationMinutes}min</p>
           </div>
         </div>
@@ -100,36 +100,36 @@ function SwimSessionCard({ session }: { session: SwimSession }) {
 
       {/* Expanded details */}
       {expanded && (
-        <div className="mt-3 pt-3 border-t border-slate-800 space-y-2">
+        <div className="mt-3 pt-3 border-t border-slate-100 space-y-2">
           <div className="grid grid-cols-2 gap-2">
             <div className="stat-card">
               <span className="text-[10px] text-slate-500">Dolor antes</span>
               <span className={`text-sm font-bold ${
-                session.shoulderPainBefore0to10 <= 2 ? 'text-emerald-400' :
-                session.shoulderPainBefore0to10 <= 4 ? 'text-amber-400' :
-                'text-red-400'
+                session.shoulderPainBefore0to10 <= 2 ? 'text-emerald-600' :
+                session.shoulderPainBefore0to10 <= 4 ? 'text-amber-600' :
+                'text-red-600'
               }`}>{session.shoulderPainBefore0to10}/10</span>
             </div>
             <div className="stat-card">
               <span className="text-[10px] text-slate-500">Dolor después</span>
               <span className={`text-sm font-bold ${
-                session.shoulderPainAfter0to10 <= 2 ? 'text-emerald-400' :
-                session.shoulderPainAfter0to10 <= 4 ? 'text-amber-400' :
-                'text-red-400'
+                session.shoulderPainAfter0to10 <= 2 ? 'text-emerald-600' :
+                session.shoulderPainAfter0to10 <= 4 ? 'text-amber-600' :
+                'text-red-600'
               }`}>{session.shoulderPainAfter0to10}/10</span>
             </div>
             <div className="stat-card">
               <span className="text-[10px] text-slate-500">Fatiga</span>
-              <span className="text-sm font-bold text-slate-100">{session.fatigue1to5}/5</span>
+              <span className="text-sm font-bold text-slate-900">{session.fatigue1to5}/5</span>
             </div>
             <div className="stat-card">
               <span className="text-[10px] text-slate-500">Ritmo</span>
-              <span className="text-sm font-bold text-slate-100">{pace > 0 ? `${pace.toFixed(1)} /100m` : '—'}</span>
+              <span className="text-sm font-bold text-slate-900">{pace > 0 ? `${pace.toFixed(1)} /100m` : '—'}</span>
             </div>
           </div>
           {session.notes && (
-            <div className="bg-slate-800/50 rounded-xl p-3">
-              <p className="text-xs text-slate-400 italic">&ldquo;{session.notes}&rdquo;</p>
+            <div className="bg-slate-50 rounded-xl p-3">
+              <p className="text-xs text-slate-500 italic">&ldquo;{session.notes}&rdquo;</p>
             </div>
           )}
         </div>
@@ -149,13 +149,13 @@ function BandSessionCard({ session }: { session: BandSession }) {
       >
         <div className="flex items-start justify-between gap-2">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-violet-500/10 flex items-center justify-center flex-shrink-0">
-              <svg className="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <div className="w-8 h-8 rounded-lg bg-violet-50 flex items-center justify-center flex-shrink-0">
+              <svg className="w-4 h-4 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
               </svg>
             </div>
             <div>
-              <p className="text-sm font-semibold text-slate-100">Bandas elásticas</p>
+              <p className="text-sm font-semibold text-slate-900">Bandas elásticas</p>
               <p className="text-xs text-slate-500">
                 {new Date(session.date).toLocaleDateString('es-ES', {
                   weekday: 'short', day: 'numeric', month: 'short',
@@ -164,7 +164,7 @@ function BandSessionCard({ session }: { session: BandSession }) {
             </div>
           </div>
           <div className="text-right flex-shrink-0">
-            <p className="text-sm font-bold text-violet-400">{session.durationMinutes}min</p>
+            <p className="text-sm font-bold text-violet-600">{session.durationMinutes}min</p>
             <p className="text-xs text-slate-500">RPE {session.effort1to5}/5</p>
           </div>
         </div>
@@ -175,9 +175,9 @@ function BandSessionCard({ session }: { session: BandSession }) {
       </button>
 
       {expanded && session.notes && (
-        <div className="mt-3 pt-3 border-t border-slate-800">
-          <div className="bg-slate-800/50 rounded-xl p-3">
-            <p className="text-xs text-slate-400 italic">&ldquo;{session.notes}&rdquo;</p>
+        <div className="mt-3 pt-3 border-t border-slate-100">
+          <div className="bg-slate-50 rounded-xl p-3">
+            <p className="text-xs text-slate-500 italic">&ldquo;{session.notes}&rdquo;</p>
           </div>
         </div>
       )}
@@ -240,18 +240,18 @@ export default function HistorialPage() {
     <div className="px-4 pt-6 pb-4 space-y-4">
       {/* Header */}
       <div>
-        <h1 className="text-xl font-bold text-slate-100">Historial</h1>
-        <p className="text-sm text-slate-400 mt-0.5">Todas tus sesiones registradas</p>
+        <h1 className="text-xl font-bold text-slate-900">Historial</h1>
+        <p className="text-sm text-slate-500 mt-0.5">Todas tus sesiones registradas</p>
       </div>
 
       {/* Period selector */}
-      <div className="flex gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800">
+      <div className="flex gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
         {[14, 30, 60, 90].map((d) => (
           <button
             key={d}
             onClick={() => setDays(d)}
             className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all duration-150 ${
-              days === d ? 'bg-sky-500 text-white' : 'text-slate-400 hover:text-slate-300'
+              days === d ? 'bg-sky-600 text-white' : 'text-slate-500 hover:text-slate-700'
             }`}
           >
             {d}d
@@ -264,20 +264,20 @@ export default function HistorialPage() {
         <div className="grid grid-cols-3 gap-2">
           <div className="stat-card">
             <span className="text-[10px] text-slate-500">Km nadados</span>
-            <span className="text-lg font-bold text-sky-400">
+            <span className="text-lg font-bold text-sky-600">
               {(totalSwimDistance / 1000).toFixed(1)}
             </span>
           </div>
           <div className="stat-card">
             <span className="text-[10px] text-slate-500">Horas</span>
-            <span className="text-lg font-bold text-slate-100">
+            <span className="text-lg font-bold text-slate-900">
               {(totalSwimTime / 60).toFixed(1)}h
             </span>
           </div>
           <div className="stat-card">
             <span className="text-[10px] text-slate-500">Dolor prom.</span>
             <span className={`text-lg font-bold ${
-              avgPain <= 2 ? 'text-emerald-400' : avgPain <= 4 ? 'text-amber-400' : 'text-red-400'
+              avgPain <= 2 ? 'text-emerald-600' : avgPain <= 4 ? 'text-amber-600' : 'text-red-600'
             }`}>
               {avgPain > 0 ? avgPain.toFixed(1) : '—'}
             </span>
@@ -293,10 +293,10 @@ export default function HistorialPage() {
             onClick={() => setFilter(f)}
             className={`flex-1 py-2 text-xs font-semibold rounded-xl transition-all ${
               filter === f
-                ? f === 'swim' ? 'bg-sky-500 text-white' :
-                  f === 'band' ? 'bg-violet-500 text-white' :
+                ? f === 'swim' ? 'bg-sky-600 text-white' :
+                  f === 'band' ? 'bg-violet-600 text-white' :
                   'bg-slate-700 text-white'
-                : 'bg-slate-800 text-slate-500 hover:text-slate-300'
+                : 'bg-white text-slate-500 hover:text-slate-700 border border-slate-200'
             }`}
           >
             {f === 'all' ? 'Todo' : f === 'swim' ? 'Natación' : 'Bandas'}
@@ -313,12 +313,12 @@ export default function HistorialPage() {
         </div>
       ) : combined.length === 0 ? (
         <div className="card text-center py-10">
-          <div className="w-12 h-12 rounded-2xl bg-slate-800 flex items-center justify-center mx-auto mb-3">
+          <div className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center mx-auto mb-3">
             <svg className="w-6 h-6 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
             </svg>
           </div>
-          <p className="text-slate-400 text-sm">Sin sesiones en los últimos {days} días</p>
+          <p className="text-slate-500 text-sm">Sin sesiones en los últimos {days} días</p>
         </div>
       ) : (
         <div className="space-y-2">

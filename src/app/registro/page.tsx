@@ -24,7 +24,7 @@ function PainScale({
   label: string
 }) {
   const getPainColor = (v: number) => {
-    if (v === 0) return 'bg-slate-700 text-slate-400'
+    if (v === 0) return 'bg-slate-100 text-slate-500'
     if (v <= 2) return 'bg-emerald-500 text-white'
     if (v <= 4) return 'bg-amber-500 text-white'
     if (v <= 6) return 'bg-orange-500 text-white'
@@ -44,14 +44,14 @@ function PainScale({
             className={`w-8 h-8 rounded-lg text-xs font-bold transition-all duration-100 ${
               value === i
                 ? getPainColor(i) + ' scale-110 shadow-lg'
-                : 'bg-slate-800 text-slate-500 hover:bg-slate-700'
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
             }`}
           >
             {i}
           </button>
         ))}
       </div>
-      <p className="text-[10px] text-slate-500 mt-1">
+      <p className="text-[10px] text-slate-400 mt-1">
         {value === 0 ? 'Sin dolor' : value <= 2 ? 'Muy leve' : value <= 4 ? 'Leve' : value <= 6 ? 'Moderado' : value <= 8 ? 'Intenso' : 'Muy intenso'}
       </p>
     </div>
@@ -82,7 +82,7 @@ function EffortScale({
             className={`flex-1 h-10 rounded-xl text-sm font-bold transition-all duration-100 ${
               value === i
                 ? effortColors[i] + ' text-white scale-105 shadow-lg'
-                : 'bg-slate-800 text-slate-500 hover:bg-slate-700'
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
             }`}
           >
             {i}
@@ -90,7 +90,7 @@ function EffortScale({
         ))}
       </div>
       {value > 0 && (
-        <p className="text-[10px] text-slate-500 mt-1">{effortLabels[value]}</p>
+        <p className="text-[10px] text-slate-400 mt-1">{effortLabels[value]}</p>
       )}
     </div>
   )
@@ -246,18 +246,18 @@ function RegistroContent() {
     <div className="px-4 pt-6 pb-4 space-y-4">
       {/* Header */}
       <div>
-        <h1 className="text-xl font-bold text-slate-100">Registrar sesión</h1>
-        <p className="text-sm text-slate-400 mt-0.5">Añade tu entrenamiento de hoy</p>
+        <h1 className="text-xl font-bold text-slate-900">Registrar sesión</h1>
+        <p className="text-sm text-slate-500 mt-0.5">Añade tu entrenamiento de hoy</p>
       </div>
 
       {/* Tab switcher */}
-      <div className="flex gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800">
+      <div className="flex gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
         <button
           onClick={() => { setActiveTab('swim'); setMessage(null) }}
           className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition-all duration-150 ${
             activeTab === 'swim'
-              ? 'bg-sky-500 text-white shadow-lg shadow-sky-500/20'
-              : 'text-slate-400 hover:text-slate-300'
+              ? 'bg-sky-600 text-white'
+              : 'text-slate-500 hover:text-slate-700'
           }`}
         >
           Natación
@@ -266,8 +266,8 @@ function RegistroContent() {
           onClick={() => { setActiveTab('band'); setMessage(null) }}
           className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition-all duration-150 ${
             activeTab === 'band'
-              ? 'bg-violet-500 text-white shadow-lg shadow-violet-500/20'
-              : 'text-slate-400 hover:text-slate-300'
+              ? 'bg-violet-600 text-white'
+              : 'text-slate-500 hover:text-slate-700'
           }`}
         >
           Bandas
@@ -276,8 +276,8 @@ function RegistroContent() {
           onClick={() => { setActiveTab('weight'); setMessage(null) }}
           className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition-all duration-150 ${
             activeTab === 'weight'
-              ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/20'
-              : 'text-slate-400 hover:text-slate-300'
+              ? 'bg-emerald-600 text-white'
+              : 'text-slate-500 hover:text-slate-700'
           }`}
         >
           Peso
@@ -320,8 +320,8 @@ function RegistroContent() {
                   onClick={() => setSwimForm({ ...swimForm, sessionType: type.value })}
                   className={`w-full p-3 rounded-xl border text-left transition-all duration-150 ${
                     swimForm.sessionType === type.value
-                      ? 'bg-sky-500/10 border-sky-500/50 text-sky-100'
-                      : 'bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700'
+                      ? 'bg-sky-50 border-sky-200 text-sky-900'
+                      : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
                   }`}
                 >
                   <p className="text-sm font-semibold">{type.label}</p>
@@ -483,7 +483,7 @@ function RegistroContent() {
                     const next = Math.round((current + delta) * 10) / 10
                     setWeightForm({ ...weightForm, weightKg: String(next > 0 ? next : '') })
                   }}
-                  className="flex-1 py-2 rounded-xl text-sm font-semibold bg-slate-800 text-slate-400 hover:bg-slate-700 transition-all"
+                  className="flex-1 py-2 rounded-xl text-sm font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all"
                 >
                   {delta > 0 ? `+${delta}` : delta}
                 </button>
@@ -504,7 +504,7 @@ function RegistroContent() {
           </div>
 
           {/* Info */}
-          <div className="rounded-xl bg-emerald-500/10 border border-emerald-500/20 p-3">
+          <div className="rounded-xl bg-emerald-50 border border-emerald-200 p-3">
             <p className="text-xs text-emerald-400 font-semibold mb-1">Consejo</p>
             <p className="text-xs text-slate-400">Para mayor consistencia, pésate siempre en las mismas condiciones: por la mañana, en ayunas y después de ir al baño.</p>
           </div>
@@ -512,7 +512,7 @@ function RegistroContent() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold py-3 px-6 rounded-xl transition-colors duration-150 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-xl transition-colors duration-150 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {submitting ? (
               <>
@@ -553,8 +553,8 @@ function RegistroContent() {
                   onClick={() => setBandForm({ ...bandForm, durationMinutes: String(min) })}
                   className={`flex-1 py-2 rounded-xl text-sm font-semibold transition-all ${
                     bandForm.durationMinutes === String(min)
-                      ? 'bg-violet-500 text-white'
-                      : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+                      ? 'bg-violet-600 text-white'
+                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                   }`}
                 >
                   {min}m
@@ -608,9 +608,9 @@ function RegistroContent() {
           </div>
 
           {/* Exercise hint */}
-          <div className="card-sm border-violet-500/20">
-            <p className="text-xs font-semibold text-violet-400 mb-1">Recordatorio de ejercicios</p>
-            <ul className="text-xs text-slate-400 space-y-0.5">
+          <div className="card-sm border border-violet-100 bg-violet-50">
+            <p className="text-xs font-semibold text-violet-700 font-semibold mb-1">Recordatorio de ejercicios</p>
+            <ul className="text-xs text-slate-600 space-y-0.5">
               <li>• Rotación externa con banda (3×15)</li>
               <li>• Retracción escapular (3×15)</li>
               <li>• Remo con banda (3×15)</li>
@@ -622,7 +622,7 @@ function RegistroContent() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full flex items-center justify-center gap-2 bg-violet-500 hover:bg-violet-400 text-white font-semibold py-3 px-6 rounded-xl transition-colors duration-150 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full flex items-center justify-center gap-2 bg-violet-600 hover:bg-violet-700 text-white font-semibold py-3 px-6 rounded-xl transition-colors duration-150 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {submitting ? (
               <>

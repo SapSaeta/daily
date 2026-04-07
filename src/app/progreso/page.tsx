@@ -165,18 +165,18 @@ export default function ProgresoPage() {
     <div className="px-4 pt-6 pb-4 space-y-4">
       {/* Header */}
       <div>
-        <h1 className="text-xl font-bold text-slate-100">Progreso</h1>
-        <p className="text-sm text-slate-400 mt-0.5">Tu evolución en el tiempo</p>
+        <h1 className="text-xl font-bold text-slate-900">Progreso</h1>
+        <p className="text-sm text-slate-500 mt-0.5">Tu evolución en el tiempo</p>
       </div>
 
       {/* Period selector */}
-      <div className="flex gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800">
+      <div className="flex gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
         {[14, 30, 60, 90].map((d) => (
           <button
             key={d}
             onClick={() => setDays(d)}
             className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all duration-150 ${
-              days === d ? 'bg-sky-500 text-white' : 'text-slate-400 hover:text-slate-300'
+              days === d ? 'bg-sky-600 text-white' : 'text-slate-500 hover:text-slate-700'
             }`}
           >
             {d}d
@@ -192,8 +192,8 @@ export default function ProgresoPage() {
         </div>
       ) : sessions.length === 0 ? (
         <div className="card text-center py-10">
-          <p className="text-slate-400 text-sm">Sin datos para mostrar</p>
-          <p className="text-slate-600 text-xs mt-1">Registra sesiones para ver tu progreso</p>
+          <p className="text-slate-500 text-sm">Sin datos para mostrar</p>
+          <p className="text-slate-400 text-xs mt-1">Registra sesiones para ver tu progreso</p>
         </div>
       ) : (
         <>
@@ -201,30 +201,30 @@ export default function ProgresoPage() {
           <div className="grid grid-cols-2 gap-2">
             <div className="stat-card">
               <span className="text-[10px] text-slate-500 uppercase tracking-wide">Total nadado</span>
-              <span className="text-xl font-bold text-sky-400">{(totalDistance / 1000).toFixed(1)}km</span>
+              <span className="text-xl font-bold text-sky-600">{(totalDistance / 1000).toFixed(1)}km</span>
               <span className="text-[10px] text-slate-600">{sessions.length} sesiones</span>
             </div>
             <div className="stat-card">
               <span className="text-[10px] text-slate-500 uppercase tracking-wide">Tiempo total</span>
-              <span className="text-xl font-bold text-slate-100">{Math.floor(totalTime / 60)}h {totalTime % 60}m</span>
+              <span className="text-xl font-bold text-slate-900">{Math.floor(totalTime / 60)}h {totalTime % 60}m</span>
               <span className="text-[10px] text-slate-600">~{Math.round(avgDistance)}m/sesión</span>
             </div>
             <div className="stat-card">
               <span className="text-[10px] text-slate-500 uppercase tracking-wide">Mejor sesión</span>
-              <span className="text-xl font-bold text-emerald-400">{maxDistance}m</span>
+              <span className="text-xl font-bold text-emerald-600">{maxDistance}m</span>
             </div>
             <div className="stat-card">
               <span className="text-[10px] text-slate-500 uppercase tracking-wide">Tendencia dolor</span>
               <div className="flex items-center gap-1">
                 <span className={`text-xl font-bold ${
-                  painTrend < 0 ? 'text-emerald-400' :
-                  painTrend === 0 ? 'text-slate-400' :
-                  'text-red-400'
+                  painTrend < 0 ? 'text-emerald-600' :
+                  painTrend === 0 ? 'text-slate-500' :
+                  'text-red-600'
                 }`}>
                   {painTrend === 0 ? '=' : painTrend > 0 ? '+' : ''}{painTrend.toFixed(1)}
                 </span>
                 {painTrend < 0 && (
-                  <svg className="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <svg className="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6 9 12.75l4.286-4.286a11.948 11.948 0 0 1 4.306 6.43l.776 2.898m0 0 3.182-5.511m-3.182 5.51-5.511-3.181" />
                   </svg>
                 )}
@@ -241,13 +241,13 @@ export default function ProgresoPage() {
           {/* Charts */}
           <div className="card">
             {/* Chart selector */}
-            <div className="flex gap-1 bg-slate-800 p-1 rounded-xl mb-4">
+            <div className="flex gap-1 bg-slate-100 p-1 rounded-xl mb-4">
               {(['distance', 'pain', 'weekly', 'weight'] as ChartView[]).map((view) => (
                 <button
                   key={view}
                   onClick={() => setChartView(view)}
                   className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${
-                    chartView === view ? 'bg-sky-500 text-white' : 'text-slate-400 hover:text-slate-300'
+                    chartView === view ? 'bg-sky-600 text-white' : 'text-slate-500 hover:text-slate-700'
                   }`}
                 >
                   {view === 'distance' ? 'Distancia' : view === 'pain' ? 'Dolor' : view === 'weekly' ? 'Semanas' : 'Peso'}
@@ -270,13 +270,13 @@ export default function ProgresoPage() {
                   <div className="stat-card">
                     <span className="text-[10px] text-slate-500">Dolor promedio antes</span>
                     <span className={`text-lg font-bold ${
-                      avgPainBefore <= 2 ? 'text-emerald-400' : avgPainBefore <= 4 ? 'text-amber-400' : 'text-red-400'
+                      avgPainBefore <= 2 ? 'text-emerald-600' : avgPainBefore <= 4 ? 'text-amber-400' : 'text-red-600'
                     }`}>{avgPainBefore.toFixed(1)}/10</span>
                   </div>
                   <div className="stat-card">
                     <span className="text-[10px] text-slate-500">Dolor promedio después</span>
                     <span className={`text-lg font-bold ${
-                      avgPainAfter <= 2 ? 'text-emerald-400' : avgPainAfter <= 4 ? 'text-amber-400' : 'text-red-400'
+                      avgPainAfter <= 2 ? 'text-emerald-600' : avgPainAfter <= 4 ? 'text-amber-400' : 'text-red-600'
                     }`}>{avgPainAfter.toFixed(1)}/10</span>
                   </div>
                 </div>
@@ -299,7 +299,7 @@ export default function ProgresoPage() {
                     <div className="mt-3 grid grid-cols-3 gap-2">
                       <div className="stat-card">
                         <span className="text-[10px] text-slate-500">Actual</span>
-                        <span className="text-lg font-bold text-emerald-400">
+                        <span className="text-lg font-bold text-emerald-600">
                           {latestWeight != null ? `${latestWeight} kg` : '—'}
                         </span>
                       </div>
@@ -326,7 +326,7 @@ export default function ProgresoPage() {
                 ) : (
                   <div className="text-center py-8">
                     <p className="text-slate-500 text-sm">Sin registros de peso</p>
-                    <p className="text-slate-600 text-xs mt-1">Registra tu peso en la sección de registro</p>
+                    <p className="text-slate-400 text-xs mt-1">Registra tu peso en la sección de registro</p>
                   </div>
                 )}
               </div>
@@ -343,9 +343,9 @@ export default function ProgresoPage() {
                   .map(([type, count]) => (
                     <div key={type} className="flex items-center gap-3">
                       <div className={`w-2 h-2 rounded-full flex-shrink-0 ${typeColors[type] || 'bg-slate-500'}`} />
-                      <span className="text-xs text-slate-300 flex-1">{typeLabels[type] || type}</span>
+                      <span className="text-xs text-slate-700 flex-1">{typeLabels[type] || type}</span>
                       <div className="flex items-center gap-2">
-                        <div className="w-20 h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                        <div className="w-20 h-1.5 bg-slate-100 rounded-full overflow-hidden">
                           <div
                             className={`h-full rounded-full ${typeColors[type] || 'bg-slate-500'}`}
                             style={{ width: `${(count / sessions.length) * 100}%` }}
@@ -369,11 +369,11 @@ export default function ProgresoPage() {
               <div>
                 <div className="flex justify-between text-xs text-slate-500 mb-1.5">
                   <span>Dolor promedio antes de nadar</span>
-                  <span className={avgPainBefore <= 3 ? 'text-emerald-400' : 'text-amber-400'}>
+                  <span className={avgPainBefore <= 3 ? 'text-emerald-600' : 'text-amber-600'}>
                     {avgPainBefore.toFixed(1)}/10
                   </span>
                 </div>
-                <div className="h-2 bg-slate-800 rounded-full">
+                <div className="h-2 bg-slate-100 rounded-full">
                   <div
                     className={`h-full rounded-full ${avgPainBefore <= 3 ? 'bg-emerald-500' : 'bg-amber-500'}`}
                     style={{ width: `${(avgPainBefore / 10) * 100}%` }}
@@ -383,11 +383,11 @@ export default function ProgresoPage() {
               <div>
                 <div className="flex justify-between text-xs text-slate-500 mb-1.5">
                   <span>Dolor promedio después de nadar</span>
-                  <span className={avgPainAfter <= 3 ? 'text-emerald-400' : avgPainAfter <= 6 ? 'text-amber-400' : 'text-red-400'}>
+                  <span className={avgPainAfter <= 3 ? 'text-emerald-600' : avgPainAfter <= 6 ? 'text-amber-600' : 'text-red-600'}>
                     {avgPainAfter.toFixed(1)}/10
                   </span>
                 </div>
-                <div className="h-2 bg-slate-800 rounded-full">
+                <div className="h-2 bg-slate-100 rounded-full">
                   <div
                     className={`h-full rounded-full ${
                       avgPainAfter <= 3 ? 'bg-emerald-500' : avgPainAfter <= 6 ? 'bg-amber-500' : 'bg-red-500'
@@ -399,9 +399,9 @@ export default function ProgresoPage() {
 
               {/* Interpretation */}
               <div className={`rounded-xl p-3 text-xs ${
-                avgPainAfter <= 2 ? 'bg-emerald-500/10 text-emerald-300' :
-                avgPainAfter <= 4 ? 'bg-amber-500/10 text-amber-300' :
-                'bg-red-500/10 text-red-300'
+                avgPainAfter <= 2 ? 'bg-emerald-50 text-emerald-700' :
+                avgPainAfter <= 4 ? 'bg-amber-50 text-amber-700' :
+                'bg-red-50 text-red-700'
               }`}>
                 {avgPainAfter <= 2
                   ? 'Excelente control del dolor. Continúa con la progresión actual.'

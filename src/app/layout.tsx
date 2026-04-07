@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'black-translucent',
+    statusBarStyle: 'default',
     title: 'Daily Sport',
   },
   formatDetection: {
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#08080f',
+  themeColor: '#ffffff',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
@@ -38,10 +38,10 @@ export default function RootLayout({
       <head>
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <link rel="apple-touch-icon" href="/icons/icon-192.png" />
       </head>
-      <body style={{ background: '#08080f' }} className="text-slate-100 min-h-screen">
+      <body style={{ background: '#f1f5f9' }} className="text-slate-900 min-h-screen">
         <div className="max-w-md mx-auto min-h-screen flex flex-col relative">
           {/* Main content with bottom padding for navigation */}
           <main className="flex-1 pb-20 overflow-x-hidden">

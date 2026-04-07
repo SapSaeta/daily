@@ -139,8 +139,8 @@ export default async function EjerciciosPage() {
     <div className="px-4 pt-6 pb-4 space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-xl font-bold text-slate-100">Biblioteca de ejercicios</h1>
-        <p className="text-sm text-slate-400 mt-0.5">Programa de hombro para síndrome subacromial</p>
+        <h1 className="text-xl font-bold text-slate-900">Biblioteca de ejercicios</h1>
+        <p className="text-sm text-slate-500 mt-0.5">Programa de hombro para síndrome subacromial</p>
       </div>
 
       {/* Info banner */}

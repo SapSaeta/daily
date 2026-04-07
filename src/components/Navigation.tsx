@@ -57,13 +57,8 @@ export default function Navigation() {
 
   return (
     <nav
-      className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md z-50 safe-bottom"
-      style={{
-        background: 'rgba(8,8,15,0.85)',
-        backdropFilter: 'blur(24px)',
-        WebkitBackdropFilter: 'blur(24px)',
-        borderTop: '1px solid rgba(255,255,255,0.07)',
-      }}
+      className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md z-50 safe-bottom bg-white"
+      style={{ borderTop: '1px solid #e2e8f0' }}
     >
       <div className="flex items-center justify-around px-2 pt-2 pb-1">
         {navItems.map((item) => {
@@ -72,10 +67,10 @@ export default function Navigation() {
             return (
               <Link key={item.href} href={item.href} className="flex flex-col items-center -mt-5">
                 <div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg"
+                  className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg"
                   style={{
-                    background: 'linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%)',
-                    boxShadow: '0 4px 20px rgba(99,102,241,0.5)',
+                    background: 'linear-gradient(135deg, #0284c7, #7c3aed)',
+                    boxShadow: '0 4px 16px rgba(2,132,199,0.35)',
                   }}
                 >
                   {item.icon(false)}
@@ -88,7 +83,7 @@ export default function Navigation() {
               key={item.href}
               href={item.href}
               className={`nav-tab ${isActive ? 'active' : ''}`}
-              style={{ color: isActive ? '#38bdf8' : 'rgba(255,255,255,0.28)' }}
+              style={{ color: isActive ? '#0284c7' : '#94a3b8' }}
             >
               {item.icon(isActive)}
               <span style={{ fontSize: '10px', fontWeight: 600, letterSpacing: '0.02em' }}>
